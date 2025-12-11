@@ -55,7 +55,9 @@ Advanced Ring -1 hypervisor for runtime spoofing:
 
 ## 🔥 AFUWIN Method - Step by Step
 
-Based on the [Spoofing Database Guide](https://spoofing-database.gitbook.io/free-spoofing-database-docs/perm-spoofing/afuwin-method)
+📖 **Open [`L2-HWID-Spoofer/AFUWIN-GUIDE.html`](L2-HWID-Spoofer/AFUWIN-GUIDE.html) for the complete interactive guide!**
+
+The guide works offline and contains all steps with detailed instructions.
 
 ### Required Tools
 
