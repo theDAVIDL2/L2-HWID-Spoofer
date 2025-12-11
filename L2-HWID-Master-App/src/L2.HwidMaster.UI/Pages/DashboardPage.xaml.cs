@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -12,130 +13,153 @@ namespace L2.HwidMaster.UI.Pages
         public DashboardPage()
         {
             InitializeComponent();
-            LoadSystemInfo();
+            Loaded += (s, e) => LoadSystemInfo();
         }
 
         private void LoadSystemInfo()
         {
-            try
-            {
-                LoadNetworkInfo();
-                LoadStorageInfo();
-                LoadWindowsInfo();
-                LoadDisplayInfo();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading system info: {ex.Message}", "Error", 
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            LoadNetworkInfo();
+            LoadStorageInfo();
+            LoadWindowsInfo();
+            LoadDisplayInfo();
         }
 
         private void LoadNetworkInfo()
         {
-            NetworkInfo.Children.Clear();
-            
-            var adapters = NetworkInterface.GetAllNetworkInterfaces()
-                .Where(n => n.OperationalStatus == OperationalStatus.Up 
-                         && n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                .Take(4);
-
-            foreach (var adapter in adapters)
+            try
             {
-                var mac = adapter.GetPhysicalAddress().ToString();
-                var formattedMac = string.Join(":", Enumerable.Range(0, 6)
-                    .Select(i => mac.Substring(i * 2, 2)));
+                NetworkInfo.Children.Clear();
                 
-                AddInfoItem(NetworkInfo, adapter.Name, formattedMac);
-                
-                // Update status card with first adapter
-                if (MacValue.Text == "AA:BB:CC:DD:EE:FF")
+                var adapters = NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(n => n.OperationalStatus == OperationalStatus.Up 
+                             && n.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    .Take(4);
+
+                foreach (var adapter in adapters)
                 {
-                    MacValue.Text = formattedMac;
+                    var mac = adapter.GetPhysicalAddress().ToString();
+                    string formattedMac = "N/A";
+                    
+                    if (!string.IsNullOrEmpty(mac) && mac.Length >= 12)
+                    {
+                        formattedMac = string.Join(":", Enumerable.Range(0, 6)
+                            .Select(i => mac.Substring(i * 2, 2)));
+                    }
+                    else if (!string.IsNullOrEmpty(mac))
+                    {
+                        formattedMac = mac;
+                    }
+                    
+                    AddInfoItem(NetworkInfo, adapter.Name, formattedMac);
+                    
+                    if (MacValue.Text == "AA:BB:CC:DD:EE:FF" && formattedMac != "N/A")
+                    {
+                        MacValue.Text = formattedMac;
+                    }
+                }
+
+                if (!adapters.Any())
+                {
+                    AddInfoItem(NetworkInfo, "No adapters", "None found");
                 }
             }
-
-            if (!adapters.Any())
+            catch (Exception ex)
             {
-                AddInfoItem(NetworkInfo, "No adapters", "None found");
+                AddInfoItem(NetworkInfo, "Error", ex.Message);
             }
         }
 
         private void LoadStorageInfo()
         {
-            StorageInfo.Children.Clear();
-            
-            var drives = System.IO.DriveInfo.GetDrives()
-                .Where(d => d.IsReady && d.DriveType == System.IO.DriveType.Fixed);
-
-            foreach (var drive in drives)
+            try
             {
-                string volumeSerial = "Unknown";
-                try
+                StorageInfo.Children.Clear();
+                
+                var drives = System.IO.DriveInfo.GetDrives()
+                    .Where(d => d.IsReady && d.DriveType == System.IO.DriveType.Fixed);
+
+                foreach (var drive in drives)
                 {
-                    // Get volume serial from WMI
-                    using var searcher = new System.Management.ManagementObjectSearcher(
-                        $"SELECT VolumeSerialNumber FROM Win32_LogicalDisk WHERE DeviceID = '{drive.Name.TrimEnd('\\')}'" );
-                    foreach (var obj in searcher.Get())
+                    string volumeSerial = "Unknown";
+                    try
                     {
-                        var serial = obj["VolumeSerialNumber"]?.ToString();
-                        if (!string.IsNullOrEmpty(serial) && serial.Length == 8)
+                        using var searcher = new System.Management.ManagementObjectSearcher(
+                            $"SELECT VolumeSerialNumber FROM Win32_LogicalDisk WHERE DeviceID = '{drive.Name.TrimEnd('\\')}'" );
+                        foreach (var obj in searcher.Get())
                         {
-                            volumeSerial = $"{serial.Substring(0, 4)}-{serial.Substring(4, 4)}";
+                            var serial = obj["VolumeSerialNumber"]?.ToString();
+                            if (!string.IsNullOrEmpty(serial) && serial.Length >= 8)
+                            {
+                                volumeSerial = $"{serial.Substring(0, 4)}-{serial.Substring(4, 4)}";
+                            }
+                            else if (!string.IsNullOrEmpty(serial))
+                            {
+                                volumeSerial = serial;
+                            }
                         }
                     }
+                    catch { }
+                    
+                    var label = string.IsNullOrEmpty(drive.VolumeLabel) ? "Local Disk" : drive.VolumeLabel;
+                    AddInfoItem(StorageInfo, $"{drive.Name} ({label})", volumeSerial);
+                    
+                    if (VolumeValue.Text == "XXXX-XXXX")
+                    {
+                        VolumeValue.Text = volumeSerial;
+                    }
                 }
-                catch { }
-                
-                AddInfoItem(StorageInfo, $"{drive.Name} ({drive.VolumeLabel})", volumeSerial);
-                
-                // Update status card
-                if (VolumeValue.Text == "XXXX-XXXX")
-                {
-                    VolumeValue.Text = volumeSerial;
-                }
+            }
+            catch (Exception ex)
+            {
+                AddInfoItem(StorageInfo, "Error", ex.Message);
             }
         }
 
         private void LoadWindowsInfo()
         {
-            WindowsInfo.Children.Clear();
-            
-            // Machine GUID
             try
             {
-                using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
-                var machineGuid = key?.GetValue("MachineGuid")?.ToString() ?? "Unknown";
-                AddInfoItem(WindowsInfo, "MachineGuid", TruncateGuid(machineGuid));
-                GuidValue.Text = TruncateGuid(machineGuid);
-            }
-            catch
-            {
-                AddInfoItem(WindowsInfo, "MachineGuid", "Access denied");
-            }
+                WindowsInfo.Children.Clear();
+                
+                // Machine GUID
+                try
+                {
+                    using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
+                    var machineGuid = key?.GetValue("MachineGuid")?.ToString() ?? "Unknown";
+                    AddInfoItem(WindowsInfo, "MachineGuid", SafeTruncate(machineGuid, 18));
+                    GuidValue.Text = SafeTruncate(machineGuid, 18);
+                }
+                catch
+                {
+                    AddInfoItem(WindowsInfo, "MachineGuid", "Access denied");
+                }
 
-            // Machine ID
-            try
-            {
-                using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\SQMClient");
-                var machineId = key?.GetValue("MachineId")?.ToString() ?? "Not found";
-                AddInfoItem(WindowsInfo, "MachineId", TruncateGuid(machineId));
-            }
-            catch
-            {
-                AddInfoItem(WindowsInfo, "MachineId", "Not found");
-            }
+                // Machine ID
+                try
+                {
+                    using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\SQMClient");
+                    var machineId = key?.GetValue("MachineId")?.ToString() ?? "Not found";
+                    AddInfoItem(WindowsInfo, "MachineId", SafeTruncate(machineId, 18));
+                }
+                catch
+                {
+                    AddInfoItem(WindowsInfo, "MachineId", "Not found");
+                }
 
-            // Computer Name
-            AddInfoItem(WindowsInfo, "Computer Name", Environment.MachineName);
+                AddInfoItem(WindowsInfo, "Computer Name", Environment.MachineName);
+            }
+            catch (Exception ex)
+            {
+                AddInfoItem(WindowsInfo, "Error", ex.Message);
+            }
         }
 
         private void LoadDisplayInfo()
         {
-            DisplayInfo.Children.Clear();
-            
             try
             {
+                DisplayInfo.Children.Clear();
+                
                 using var searcher = new System.Management.ManagementObjectSearcher(
                     "SELECT * FROM Win32_DesktopMonitor");
                 var monitors = searcher.Get().Cast<System.Management.ManagementObject>().ToList();
@@ -146,7 +170,7 @@ namespace L2.HwidMaster.UI.Pages
                     {
                         var name = monitor["Name"]?.ToString() ?? "Unknown Monitor";
                         var pnpId = monitor["PNPDeviceID"]?.ToString() ?? "";
-                        AddInfoItem(DisplayInfo, name, pnpId.Length > 30 ? pnpId.Substring(0, 30) + "..." : pnpId);
+                        AddInfoItem(DisplayInfo, name, SafeTruncate(pnpId, 30));
                         
                         if (MonitorValue.Text == "Generic Monitor")
                         {
@@ -176,24 +200,33 @@ namespace L2.HwidMaster.UI.Pages
             });
             sp.Children.Add(new TextBlock 
             { 
-                Text = value, 
+                Text = value ?? "N/A", 
                 FontSize = 14,
                 Foreground = (System.Windows.Media.Brush)Application.Current.Resources["TextPrimaryBrush"]
             });
             parent.Children.Add(sp);
         }
 
-        private string TruncateGuid(string guid)
+        private string SafeTruncate(string text, int maxLength)
         {
-            if (guid.Length > 20)
-                return guid.Substring(0, 18) + "...";
-            return guid;
+            if (string.IsNullOrEmpty(text)) return "N/A";
+            if (text.Length <= maxLength) return text;
+            return text.Substring(0, maxLength) + "...";
         }
 
         private void CopyFingerprint_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Copy all fingerprint info to clipboard
-            MessageBox.Show("Fingerprint copied to clipboard!", "L2 HWID Master");
+            var sb = new StringBuilder();
+            sb.AppendLine("=== L2 HWID Master - Hardware Fingerprint ===");
+            sb.AppendLine($"Computer: {Environment.MachineName}");
+            sb.AppendLine($"MAC: {MacValue.Text}");
+            sb.AppendLine($"Volume: {VolumeValue.Text}");
+            sb.AppendLine($"GUID: {GuidValue.Text}");
+            sb.AppendLine($"Monitor: {MonitorValue.Text}");
+            
+            Clipboard.SetText(sb.ToString());
+            MessageBox.Show("Fingerprint copied to clipboard!", "L2 HWID Master", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void SpoofAll_Click(object sender, RoutedEventArgs e)
