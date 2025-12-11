@@ -1,27 +1,47 @@
-# L2 HWID Spoofer
+# L2 HWID Master
 
-Comprehensive Hardware ID Spoofing Solution for Windows.
+Comprehensive Hardware ID Spoofing Solution for Windows with **Interactive Step-by-Step Guides**.
 
 ## 🚀 Quick Start
 
+**Option 1: Double-click the launcher**
+```
+START-L2-MASTER.bat    (Run as Administrator)
+```
+
+**Option 2: PowerShell**
 ```powershell
 # Run as Administrator
 cd L2-HWID-Spoofer
-.\quick-spoof.ps1
+.\L2-HWID-Master.ps1
 ```
+
+## ✨ Features
+
+- 📖 **Step-by-Step Guided Spoofing** - Easy wizard for each method
+- 📥 **Automatic Tool Downloads** - VolumeID, CRU auto-downloaded
+- 💾 **Backup & Restore** - Never lose your original settings
+- 🔄 **Quick Spoof All** - One-click all spoofing methods
+- 📊 **Hardware Fingerprint Viewer** - See all your IDs
 
 ## 📁 Structure
 
 ```
 L2-HWID-Spoofer/
+├── START-L2-MASTER.bat      # 🚀 Double-click to start!
+├── L2-HWID-Master.ps1       # Main interactive launcher
+├── quick-spoof.ps1          # All-in-one quick script
 ├── core/                    # Core modules
 │   ├── SpoofingCore.ps1     # Shared functions, logging
-│   └── BackupService.ps1    # Backup/restore system
+│   ├── BackupService.ps1    # Backup/restore system
+│   └── ToolDownloader.ps1   # Auto-download tools
 ├── methods/                 # Individual spoofers
 │   ├── MacSpoofer.ps1       # MAC address spoofing
 │   ├── VolumeIdSpoofer.ps1  # Volume serial spoofing
 │   └── MachineGuidSpoofer.ps1  # Windows GUIDs
-├── quick-spoof.ps1          # All-in-one script
+├── tools/                   # Downloaded tools (auto)
+│   ├── VolumeID/            # Sysinternals VolumeID
+│   └── CRU/                 # Custom Resolution Utility
 └── README.md
 ```
 
