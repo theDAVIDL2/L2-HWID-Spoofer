@@ -1,0 +1,168 @@
+========================================
+  L2 HWID SPOOFER - QUICK START GUIDE
+========================================
+
+CONGRATULATIONS! Your project is ready to use.
+
+========================================
+  STEP 1: READ THE DOCUMENTATION
+========================================
+
+1. Start here: README.md (5 min overview)
+2. Then read: WORKFLOW.md (complete guide)
+
+These files explain everything step-by-step.
+
+========================================
+  STEP 2: PREPARE YOUR SYSTEM
+========================================
+
+What you need:
+ - Windows 10/11 (UEFI mode)
+ - USB drive (1GB minimum, will be erased)
+ - WSL installed (run: wsl --install)
+ - Administrator rights
+
+========================================
+  STEP 3: RUN THE DASHBOARD
+========================================
+
+1. RIGHT-CLICK on START-HERE.bat
+2. Select "Run as administrator"
+3. Dashboard opens with 6 buttons
+
+========================================
+  THE WORKFLOW (Simple!)
+========================================
+
+Phase 1: PREPARATION (Windows)
+  → 1. Generate Certificate
+  → 2. Sign Spoofer  
+  → 3. Create USB
+
+Phase 2: USB TESTING (Boot from USB)
+  → Boot from USB
+  → Enroll MOK (one-time)
+  → Test HWIDs spoofed
+  → Verify Windows works
+
+Phase 3: SYSTEM INSTALL (Optional)
+  → Boot normally
+  → 4. Install to System
+  → Restart
+  → Select "L2signed" boot entry
+  → Done! Auto-spoof every boot
+
+Phase 4: MAINTENANCE
+  → 5. Check Status (anytime)
+  → 6. Uninstall (if needed)
+
+========================================
+  PROJECT STRUCTURE
+========================================
+
+01-EFI-Spoofer/        Your HWID spoofer
+02-Certificates/       Certificate generation
+03-Signing/            EFI signing tools
+04-USB-Creator/        USB boot creation
+05-System-Installer/   System installation
+06-Dashboard/          GUI interface
+07-Emergency/          Recovery tools
+
+START-HERE.bat         ← RUN THIS!
+README.md              ← READ THIS!
+WORKFLOW.md            ← READ THIS TOO!
+
+========================================
+  KEY FILES
+========================================
+
+START-HERE.bat
+  Main entry point - launches dashboard
+
+README.md
+  Quick overview, getting started
+
+WORKFLOW.md  
+  Complete guide with troubleshooting
+
+PROJECT-COMPLETE.md
+  Implementation details
+
+========================================
+  IMPORTANT NOTES
+========================================
+
+SAFETY FIRST:
+ - Test USB boot BEFORE system install
+ - USB boot is completely reversible
+ - System install only after USB succeeds
+ - Uninstall available anytime
+
+SECURE BOOT:
+ - Keep Secure Boot ENABLED
+ - MOK enrollment required (one-time)
+ - After enrollment, works automatically
+
+COMPATIBILITY:
+ - Works on all UEFI systems
+ - ASUS, MSI, Gigabyte, ASRock
+ - Windows 10/11
+
+========================================
+  TROUBLESHOOTING
+========================================
+
+If USB won't boot:
+ → Check Secure Boot is ENABLED (not disabled)
+ → Try USB 2.0 port
+ → Disable Fast Boot in BIOS
+
+If system won't boot after install:
+ → Run 07-Emergency/emergency-restore.ps1
+ → Or select "Windows Boot Manager" in BIOS
+
+If HWIDs not changing:
+ → Verify spoofer configuration
+ → Check spoofer ran (boot time +2 seconds)
+
+Full troubleshooting: WORKFLOW.md
+
+========================================
+  GETTING HELP
+========================================
+
+All your questions are answered in:
+ → WORKFLOW.md (comprehensive guide)
+ → README.md (quick reference)
+ → PROJECT-COMPLETE.md (technical details)
+
+Everything is documented!
+
+========================================
+  YOU'RE READY!
+========================================
+
+1. Read README.md (5 minutes)
+2. Read WORKFLOW.md (10 minutes)  
+3. Run START-HERE.bat (as admin)
+4. Follow dashboard workflow
+
+Total time: 30 minutes
+  - Phase 1 (Preparation): 10 min
+  - Phase 2 (USB Testing): 10 min
+  - Phase 3 (System Install): 5 min
+  - Phase 4 (Maintenance): Anytime
+
+========================================
+
+Questions? Everything is in WORKFLOW.md
+
+Ready? RIGHT-CLICK START-HERE.bat
+        Select "Run as administrator"
+
+Happy spoofing! 
+
+========================================
+
+

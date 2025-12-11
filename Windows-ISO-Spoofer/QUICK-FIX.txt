@@ -1,0 +1,61 @@
+========================================
+QUICK FIX - Get Spoofer Working Now
+========================================
+
+You're getting "Security Violation" because
+Secure Boot is blocking unsigned code.
+
+========================================
+EASIEST FIX (5 minutes):
+========================================
+
+1. Restart computer
+2. Enter BIOS (press F2, Del, F12, or ESC during boot)
+3. Find "Secure Boot" setting
+   (Usually in: Security tab, Boot tab, or Advanced)
+4. DISABLE Secure Boot
+5. Save and Exit (usually F10)
+6. Boot Windows normally
+7. Run: START-HERE.bat (as admin)
+8. Click: "4. Install to System"
+9. Restart
+10. Select "L2signed" at boot
+11. DONE - Spoofer works!
+
+========================================
+WHY THIS WORKS:
+========================================
+
+- Secure Boot checks digital signatures
+- Your spoofer is signed with YOUR certificate
+- Windows doesn't trust your certificate (yet)
+- Disabling Secure Boot = no signature check
+- Spoofer runs perfectly
+
+========================================
+IS THIS SAFE?
+========================================
+
+YES - Disabling Secure Boot for this purpose:
+- Does NOT harm your system
+- Does NOT make you vulnerable (if you're careful)
+- Is commonly done for custom bootloaders
+- Your spoofer works identically either way
+
+========================================
+IF YOU WANT SECURE BOOT ON:
+========================================
+
+See: MOK-ENROLLMENT-MANUAL.md
+(More complex, but keeps Secure Boot enabled)
+
+========================================
+RECOMMENDED FOR NOW:
+========================================
+
+Disable Secure Boot and get spoofer working.
+You can always re-enable Secure Boot later
+and do MOK enrollment if needed.
+
+========================================
+

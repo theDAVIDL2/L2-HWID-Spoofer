@@ -1,0 +1,6 @@
+Assembly stubs for VM entry/exit (requires .asm file)
+VM launch sequence (VMLAUNCH implementation)
+Visual Studio solution (.sln and .vcxproj files)
+Additional spoofing (MAC, motherboard, BIOS, Windows ID)
+AMD-V support (SVM/VMCB implementation)
+Remaining documentation (7 more guides)

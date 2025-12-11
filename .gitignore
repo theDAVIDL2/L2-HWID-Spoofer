@@ -1,0 +1,81 @@
+# L2 HWID Spoofer - .gitignore
+
+# Build outputs
+*.exe
+*.dll
+*.sys
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.exp
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+Debug/
+Release/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+~$*
+
+# Certificates and Keys (IMPORTANT: Keep private keys secret!)
+*.key
+*.pem
+02-Certificates/my-key.key
+02-Certificates/my-key.crt
+02-Certificates/my-key.cer
+
+# Signed binaries (regenerate on each machine)
+*-signed.efi
+
+# ESP mount points
+S:/
+
+# Backup directories
+HWID-Backups/
+**/Backups/
+
+# Test environments
+_test_env/
+
+# Vision executable (license-locked, do not distribute)
+Vision/Vision.exe
+
+# ROM files (too large for git)
+*.ROM
+*.rom
+
+# Node modules (if any scripts use node)
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# IDE specific
+.idea/
+*.swp
+*.swo
+*~
+
+# OS-specific
+.DS_Store
+._*
