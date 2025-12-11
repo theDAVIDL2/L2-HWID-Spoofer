@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,13 +19,13 @@
             --warning: #f59e0b;
             --success: #10b981;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-primary);
@@ -32,29 +33,59 @@
             line-height: 1.7;
             padding: 0;
         }
-        
+
         .header {
-            background: linear-gradient(135deg, var(--accent), #ec4899);
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+            padding: 60px 20px;
             text-align: center;
+            border-bottom: 3px solid var(--accent);
+            position: relative;
         }
-        
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 3rem;
+            margin-bottom: 12px;
+            color: #ffffff;
+            text-shadow: 0 0 40px rgba(124, 58, 237, 0.5);
+            position: relative;
         }
-        
+
         .header p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+            color: var(--accent-light);
+            font-size: 1.2rem;
+            font-weight: 500;
+            position: relative;
         }
-        
+
+        .header-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 16px;
+            position: relative;
+        }
+
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
-        
+
         .danger-box {
             background: linear-gradient(135deg, #7f1d1d, #991b1b);
             border: 2px solid var(--danger);
@@ -62,7 +93,7 @@
             padding: 24px;
             margin: 30px 0;
         }
-        
+
         .danger-box h2 {
             color: var(--danger);
             display: flex;
@@ -70,15 +101,15 @@
             gap: 10px;
             margin-bottom: 16px;
         }
-        
+
         .danger-box ul {
             margin-left: 20px;
         }
-        
+
         .danger-box li {
             margin: 8px 0;
         }
-        
+
         .warning-box {
             background: rgba(245, 158, 11, 0.1);
             border-left: 4px solid var(--warning);
@@ -86,30 +117,30 @@
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
-        
+
         .warning-box strong {
             color: var(--warning);
         }
-        
+
         .section {
             background: var(--bg-secondary);
             border-radius: 12px;
             padding: 30px;
             margin: 30px 0;
         }
-        
+
         .section h2 {
             color: var(--accent-light);
             border-bottom: 2px solid var(--accent);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        
+
         .section h3 {
             color: var(--text-primary);
             margin: 25px 0 15px 0;
         }
-        
+
         .step {
             background: var(--bg-card);
             border-radius: 8px;
@@ -117,7 +148,7 @@
             margin: 20px 0;
             border-left: 4px solid var(--accent);
         }
-        
+
         .step-number {
             display: inline-block;
             background: var(--accent);
@@ -130,12 +161,12 @@
             font-weight: bold;
             margin-right: 10px;
         }
-        
+
         .step h3 {
             display: inline;
             margin: 0;
         }
-        
+
         code {
             background: #000;
             color: #10b981;
@@ -143,7 +174,7 @@
             border-radius: 4px;
             font-family: 'Consolas', 'Monaco', monospace;
         }
-        
+
         pre {
             background: #000;
             color: #10b981;
@@ -152,77 +183,78 @@
             overflow-x: auto;
             margin: 15px 0;
         }
-        
+
         .tool-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-        
-        .tool-table th, .tool-table td {
+
+        .tool-table th,
+        .tool-table td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid var(--bg-card);
         }
-        
+
         .tool-table th {
             background: var(--bg-card);
             color: var(--accent-light);
         }
-        
+
         .substep {
             background: var(--bg-primary);
             padding: 15px;
             border-radius: 6px;
             margin: 10px 0;
         }
-        
+
         .substep-title {
             color: var(--accent-light);
             font-weight: bold;
             margin-bottom: 10px;
         }
-        
+
         ol.instructions {
             margin-left: 20px;
         }
-        
+
         ol.instructions li {
             margin: 10px 0;
             color: var(--text-secondary);
         }
-        
+
         .highlight {
             color: var(--accent-light);
             font-weight: bold;
         }
-        
+
         .success-text {
             color: var(--success);
         }
-        
+
         .danger-text {
             color: var(--danger);
         }
-        
+
         .checklist {
             list-style: none;
             margin: 15px 0;
         }
-        
+
         .checklist li {
             padding: 8px 0;
             padding-left: 30px;
             position: relative;
         }
-        
+
         .checklist li::before {
             content: "☐";
             position: absolute;
             left: 0;
             color: var(--accent);
         }
-        
+
         .footer {
             text-align: center;
             padding: 40px;
@@ -230,43 +262,45 @@
             border-top: 1px solid var(--bg-secondary);
             margin-top: 40px;
         }
-        
+
         .toc {
             background: var(--bg-card);
             padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
         }
-        
+
         .toc h3 {
             margin-bottom: 15px;
             color: var(--accent-light);
         }
-        
+
         .toc ul {
             list-style: none;
         }
-        
+
         .toc li {
             margin: 8px 0;
         }
-        
+
         .toc a {
             color: var(--text-secondary);
             text-decoration: none;
         }
-        
+
         .toc a:hover {
             color: var(--accent-light);
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>🔥 AFUWIN BIOS Spoofing Guide</h1>
-        <p>L2 HWID Master - Permanent Hardware ID Modification</p>
+        <p>L2 HWID Master — Permanent Hardware ID Modification</p>
+        <span class="header-badge">OFFLINE GUIDE v1.0</span>
     </div>
-    
+
     <div class="container">
         <!-- CRITICAL WARNING -->
         <div class="danger-box">
@@ -287,7 +321,7 @@
                 <li>Accept FULL responsibility for any damage</li>
             </ul>
         </div>
-        
+
         <!-- Table of Contents -->
         <div class="toc">
             <h3>📋 Table of Contents</h3>
@@ -300,14 +334,14 @@
                 <li><a href="#step5">Step 5: Post Spoofing</a></li>
             </ul>
         </div>
-        
+
         <!-- STEP 0 -->
         <div class="section" id="step0">
             <h2>Step 0: Prepare</h2>
-            
+
             <h3>Required Tools</h3>
             <p>Download all necessary tools before starting. L2 HWID Master can auto-download these for you.</p>
-            
+
             <table class="tool-table">
                 <tr>
                     <th>Tool</th>
@@ -335,66 +369,81 @@
                     <td>To confirm spoofing worked</td>
                 </tr>
             </table>
-            
+
             <h3>BIOS Settings (Required)</h3>
             <p>Enter your BIOS and adjust these settings before proceeding:</p>
-            
+
             <ol class="instructions">
                 <li><strong>Disable Secure Boot</strong> and <strong>Clear the Secure Boot Keys</strong></li>
                 <li><strong>Enable CSM</strong> (Compatibility Support Module)</li>
                 <li><strong>Disable Fast Boot</strong></li>
             </ol>
-            
-            <div class="warning-box">
-                <strong>⚠️ ASUS Motherboards:</strong> ASUS boards have additional protection. The method CAN work if CSM is properly enabled and Secure Boot is fully disabled with keys cleared. However, <strong>risk of bricking is HIGHER on ASUS boards</strong>.
+
+            <div class="danger-box" style="margin-top: 25px;">
+                <h2 style="font-size: 1.3rem;">🚨 ASUS MOTHERBOARDS - CRITICAL</h2>
+                <p style="margin: 15px 0;"><strong>If you have an ASUS motherboard, you MUST flash your BIOS to a
+                        version released BEFORE 2023.</strong></p>
+                <ul>
+                    <li>Newer ASUS BIOS versions (2023+) have enhanced write protection</li>
+                    <li>The AFUWIN method will likely FAIL on modern ASUS BIOS</li>
+                    <li><strong>Make sure your CPU is compatible with the older BIOS version!</strong></li>
+                    <li>Check ASUS support page for your motherboard model</li>
+                    <li>Risk of bricking is SIGNIFICANTLY HIGHER on ASUS boards</li>
+                </ul>
+                <p style="margin-top: 15px; color: var(--warning);"><strong>⚠️ Downgrading BIOS carries its own risks.
+                        Proceed with extreme caution.</strong></p>
             </div>
-            
-            <p>Once you have successfully spoofed your HWID, you can revert these settings to your preferred configuration.</p>
+
+            <p>Once you have successfully spoofed your HWID, you can revert these settings to your preferred
+                configuration.</p>
         </div>
-        
+
         <!-- STEP 1 -->
         <div class="section" id="step1">
             <h2>Step 1: Dump bios.rom</h2>
-            
+
             <p>First, unzip the AFUWIN tool, then open an <strong>Administrator Command Prompt</strong>.</p>
-            
+
             <div class="step">
                 <span class="step-number">1</span>
                 <h3>Navigate to AFUWIN folder</h3>
                 <pre>cd "C:\path\to\AFUWIN"</pre>
                 <p style="color: var(--text-muted); margin-top: 10px;">Replace with your actual AFUWIN path</p>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">2</span>
                 <h3>Dump the BIOS</h3>
                 <pre>AFUWINx64.exe bios.rom /O</pre>
-                <p style="color: var(--text-muted); margin-top: 10px;">The /O flag means "Output" - this creates a dump of your current BIOS</p>
+                <p style="color: var(--text-muted); margin-top: 10px;">The /O flag means "Output" - this creates a dump
+                    of your current BIOS</p>
             </div>
-            
+
             <div class="warning-box">
-                <strong>Note:</strong> During the BIOS reading process, you may not be able to move the mouse, and sound may become buggy. This is normal.
+                <strong>Note:</strong> During the BIOS reading process, you may not be able to move the mouse, and sound
+                may become buggy. This is normal.
             </div>
-            
-            <p>If everything went correctly, you should now have a <code>bios.rom</code> file in the AFUWIN directory.</p>
+
+            <p>If everything went correctly, you should now have a <code>bios.rom</code> file in the AFUWIN directory.
+            </p>
         </div>
-        
+
         <!-- STEP 2 -->
         <div class="section" id="step2">
             <h2>Step 2: Setup HxD and DMIEdit</h2>
-            
+
             <div class="step">
                 <span class="step-number">1</span>
                 <h3>Install HxD</h3>
                 <p>Run the HxDSetup.exe installer you downloaded earlier.</p>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">2</span>
                 <h3>Unzip DMIEdit</h3>
                 <p>Extract the DMIEdit archive to a folder.</p>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">3</span>
                 <h3>Load bios.rom in HxD</h3>
@@ -402,13 +451,13 @@
                 <p style="margin-top: 10px;">You should see hexadecimal data displayed in the editor.</p>
             </div>
         </div>
-        
+
         <!-- STEP 3 -->
         <div class="section" id="step3">
             <h2>Step 3: Editing Your Serials</h2>
-            
+
             <p>This is the most important step. You will modify multiple serials using DMIEdit and HxD.</p>
-            
+
             <div class="substep">
                 <div class="substep-title">🔧 System Serial Number (DMIEdit)</div>
                 <ol class="instructions">
@@ -418,7 +467,7 @@
                     <li>Click the <strong>lightning bolt icon labeled "All"</strong> to apply changes</li>
                 </ol>
             </div>
-            
+
             <div class="substep">
                 <div class="substep-title">🔧 CPU Serial Number (DMIEdit)</div>
                 <ol class="instructions">
@@ -428,7 +477,7 @@
                     <li>Click the <strong>lightning bolt icon labeled "All"</strong> to apply</li>
                 </ol>
             </div>
-            
+
             <div class="substep">
                 <div class="substep-title">🔧 System UUID (HxD Required)</div>
                 <p>The UUID is more complex and requires hex editing:</p>
@@ -447,11 +496,12 @@
                     <li>Press <code>Ctrl + S</code> to save</li>
                 </ol>
             </div>
-            
+
             <div class="substep">
                 <div class="substep-title">🔧 Motherboard Serial Number (HxD Required)</div>
                 <div class="warning-box">
-                    <strong>Important:</strong> Your new serial number <strong>MUST be the same length</strong> as the original!<br>
+                    <strong>Important:</strong> Your new serial number <strong>MUST be the same length</strong> as the
+                    original!<br>
                     Example: Old Serial: <code>12345678</code> → New Serial: <code>87654321</code> (both 8 characters)
                 </div>
                 <ol class="instructions">
@@ -467,63 +517,68 @@
                 </ol>
             </div>
         </div>
-        
+
         <!-- STEP 4 -->
         <div class="section" id="step4">
             <h2>Step 4: Flash Your New bios.rom</h2>
-            
+
             <div class="danger-box">
                 <h2>⚠️ DANGER ZONE</h2>
-                <p>This step writes the modified BIOS to your motherboard. <strong>DO NOT</strong> interrupt this process!</p>
+                <p>This step writes the modified BIOS to your motherboard. <strong>DO NOT</strong> interrupt this
+                    process!</p>
                 <ul>
                     <li>Ensure your computer is plugged into power (not just battery)</li>
                     <li>Close all other applications</li>
                     <li>Do not touch your computer until the process completes</li>
                 </ul>
             </div>
-            
-            <p>You need <strong>AFUWIN version 3.05.04</strong> specifically because it supports the <code>/GAN</code> command needed for force-flashing.</p>
-            
+
+            <p>You need <strong>AFUWIN version 3.05.04</strong> specifically because it supports the <code>/GAN</code>
+                command needed for force-flashing.</p>
+
             <div class="step">
                 <span class="step-number">1</span>
                 <h3>Open Administrator Command Prompt</h3>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">2</span>
                 <h3>Navigate to AFUWIN folder</h3>
                 <pre>cd "C:\path\to\AFUWIN"</pre>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">3</span>
                 <h3>Flash the modified BIOS</h3>
                 <pre>AFUWINx64.exe bios.rom /GAN</pre>
-                <p style="color: var(--text-muted); margin-top: 10px;">The /GAN flag forces the flash even if versions don't match</p>
+                <p style="color: var(--text-muted); margin-top: 10px;">The /GAN flag forces the flash even if versions
+                    don't match</p>
             </div>
-            
+
             <div class="warning-box">
-                <strong>During flashing:</strong> Your mouse may freeze and audio may glitch. <strong>This is normal!</strong> Do NOT restart or power off your computer. Wait for the "done" message.
+                <strong>During flashing:</strong> Your mouse may freeze and audio may glitch. <strong>This is
+                    normal!</strong> Do NOT restart or power off your computer. Wait for the "done" message.
             </div>
-            
-            <p>If you followed all steps correctly, you should see a success message. Your modified BIOS has been written to the motherboard.</p>
+
+            <p>If you followed all steps correctly, you should see a success message. Your modified BIOS has been
+                written to the motherboard.</p>
         </div>
-        
+
         <!-- STEP 5 -->
         <div class="section" id="step5">
             <h2>Step 5: Post Spoofing</h2>
-            
+
             <div class="step">
                 <span class="step-number">1</span>
                 <h3>Restart your computer</h3>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">2</span>
                 <h3>Verify changes with HWID Checker</h3>
                 <p>Run the HWID Checker tool to confirm your serials have changed.</p>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">3</span>
                 <h3>Restore BIOS settings (optional)</h3>
@@ -535,7 +590,7 @@
                     <li>Re-enable Fast Boot</li>
                 </ul>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">4</span>
                 <h3>Continue with other spoofing</h3>
@@ -549,11 +604,12 @@
                 <p style="margin-top: 10px;">Use L2 HWID Master for these additional methods!</p>
             </div>
         </div>
-        
+
         <div class="footer">
             <p><strong>L2 HWID Master</strong> - Permanent BIOS-Level Spoofing</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">For educational and research purposes only</p>
         </div>
     </div>
 </body>
+
 </html>
