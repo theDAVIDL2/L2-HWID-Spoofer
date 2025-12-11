@@ -8,31 +8,60 @@
 
 $script:ToolsDirectory = Join-Path $env:LOCALAPPDATA "L2Spoofer\Tools"
 
-# Tool definitions
+# Tool definitions - Same as L2 Setup tools-config.json
 $script:Tools = @{
     "VolumeID" = @{
         Name = "VolumeID"
         FileName = "Volumeid.exe"
-        DownloadUrl = "https://download.sysinternals.com/files/VolumeId.zip"
-        Description = "Microsoft Sysinternals Volume Serial Changer"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=13LXCBltHIQheRIq1DlNndPvDWioVETJj"
+        ExpectedSha256 = "22a2484d7fa799e6e71e310141614884f3bc8dad8ac749b6f1c475b5398a72f3"
+        Description = "Sysinternals tool for changing volume serial numbers"
         IsZipArchive = $true
         FolderName = "VolumeID"
     }
-    "CRU" = @{
-        Name = "Custom Resolution Utility"
-        FileName = "CRU.exe"
-        DownloadUrl = "https://www.monitortests.com/download/cru/cru-1.5.2.zip"
-        Description = "Monitor EDID Editor by ToastyX"
+    "MonitorSpoofer" = @{
+        Name = "Monitor Spoofer"
+        FileName = "MonitorSpoofer.exe"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=1B2nVPTBPrM0yrI-jAnIDi0wyR_PzAZGC"
+        Description = "Tool for spoofing monitor serial numbers and EDIDs"
         IsZipArchive = $true
-        FolderName = "CRU"
+        FolderName = "MonitorSpoofer"
     }
-    "restart64" = @{
-        Name = "Restart64"
-        FileName = "restart64.exe"
-        DownloadUrl = "https://www.monitortests.com/download/cru/cru-1.5.2.zip"
-        Description = "Graphics Driver Restart Utility"
+    "AFUWIN" = @{
+        Name = "AFUWIN"
+        FileName = "AFUWINx64.EXE"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=1G2r5NOSss822yLKKUHN0Ua2YBY3C2F24"
+        ExpectedSha256 = "2f5bacd0ecbfc34f41568adaccfe1457c84585baac3bd5f8a5a2a5363c1f7b1e"
+        Description = "AMI Firmware Update utility for BIOS flashing"
         IsZipArchive = $true
-        FolderName = "CRU"
+        FolderName = "AFUWIN"
+    }
+    "DMIEdit" = @{
+        Name = "DMIEdit"
+        FileName = "DMIEDIT.EXE"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=1-Tatx33EZf7WNzvH7geBLy-3l4At4y3m"
+        ExpectedSha256 = "5d37e5e7ce01549965bf2166adcba33d1e2c4bd2c90711032f3987b58452ce49"
+        Description = "SMBIOS editing tool for system information modification"
+        IsZipArchive = $true
+        FolderName = "DMIEdit"
+    }
+    "MaxioTool" = @{
+        Name = "MaxioTool"
+        FileName = "MXMPTool_MAP1202_USB_V0_01_009d.exe"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=1r2fIQwK9o1SDxAQc9pb8cnJ-SxDu-UV4"
+        ExpectedSha256 = "808dffe9a868f575391930095c3c4717db194fd316f5d0c53ca536860ca19839"
+        Description = "Maxio MAP1202 SSD controller flashing tool"
+        IsZipArchive = $true
+        FolderName = "MaxioTool"
+    }
+    "CrystalDiskInfo" = @{
+        Name = "CrystalDiskInfo"
+        FileName = "DiskInfo64.exe"
+        DownloadUrl = "https://drive.google.com/uc?export=download&id=1tpIU8uFJhreuOMZkOY15yhuEA6-WocYm"
+        ExpectedSha256 = "8b6489d484003e5ef21382413a77b87a1e1e420001f2ffff0d5eb289d25a48ec"
+        Description = "Disk information and health monitoring tool"
+        IsZipArchive = $true
+        FolderName = "CrystalDiskInfo"
     }
 }
 
@@ -171,7 +200,7 @@ function Install-AllTools {
     Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
     Write-Host ""
     
-    $toolsNeeded = @("VolumeID", "CRU")
+    $toolsNeeded = @("VolumeID", "MonitorSpoofer")
     $allSuccess = $true
     
     foreach ($tool in $toolsNeeded) {
