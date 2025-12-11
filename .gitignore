@@ -79,3 +79,14 @@ __pycache__/
 # OS-specific
 .DS_Store
 ._*
+
+# Dev-utils local tools (external binaries)
+dev-utils/tools/*
+!dev-utils/tools/.gitkeep
+
+# Local environment files
+.env
+.env.local
+
+# Dev-utils
+/dev-utils

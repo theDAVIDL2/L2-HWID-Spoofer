@@ -117,16 +117,17 @@ L2 ISO project/
 │   ├── flash2.efi                # Flash utility
 │   └── [certificates]            # Signing certificates
 │
-├── Vision/                       # Vision Analysis Tools (Reference)
-│   ├── Vision.exe                # Competitor tool (analysis only)
-│   ├── Monitor Spoof/            # CRU and monitor tools
-│   ├── Ethernet driver/          # Network tools
-│   └── Backup Serial Checker.bat # Hardware verification
+├── L2-HWID-Spoofer/              # Main Spoofing Methods (NEW)
+│   ├── core/                     # Shared spoofing functions
+│   ├── methods/                  # Individual spoofers
+│   ├── tools/                    # CRU, VolumeID, etc.
+│   └── quick-spoof.ps1           # All-in-one script
 │
-└── [Documentation Files]         # Analysis & Comparison Docs
+├── dev-utils/                    # Development utilities
+│   └── L2 SETUP/                 # Reference project
+│
+└── [Documentation Files]
     ├── README-START-HERE.md
-    ├── ARCHITECTURE-COMPARISON.md
-    ├── VISION-ANALYSIS-*.md
     ├── SECURE-BOOT-BYPASS-STRATEGIES.md
     └── the plan.md
 ```
@@ -223,20 +224,17 @@ Core EFI utilities for BIOS-level operations:
 | `Compress.efi` | 108 KB | Compression utility |
 | `flash2.efi` | 137 KB | Alternative flash utility |
 
-### 4. Vision Analysis Suite
+### 4. L2 HWID Spoofer Methods
 
-Comprehensive analysis of the Vision competitor product:
+Integrated spoofing methods based on L2 Setup:
 
-| Document | Purpose |
-|----------|---------|
-| `VISION-ANALYSIS-INDEX.md` | Navigation guide to all analysis |
-| `VISION-ANALYSIS-SUMMARY.md` | Quick overview of findings |
-| `VISION-SPOOFER-ANALYSIS.md` | Technical deep-dive |
-| `ARCHITECTURE-COMPARISON.md` | System architecture comparison |
-| `VISION-VS-OUR-PROJECT.md` | Feature comparison |
-| `VISION-TOOLS-ANALYSIS.md` | Legal tool usage guide |
-| `VISION-EXE-REVERSE-ENGINEERING.md` | Why NOT to reverse engineer |
-| `INTEGRATE-VISION-TOOLS.ps1` | Integration script for legal tools |
+| Module | Purpose |
+|--------|---------|
+| `MacSpoofer.ps1` | Network adapter MAC address spoofing |
+| `VolumeIdSpoofer.ps1` | Drive volume serial spoofing |
+| `MachineGuidSpoofer.ps1` | Windows machine GUID spoofing |
+| `quick-spoof.ps1` | All-in-one spoofing script |
+| `BackupService.ps1` | Backup and restore system |
 
 ---
 
@@ -326,15 +324,12 @@ sc start HypervisorSpoofer
 | **Project Status** | `Hypervisor-Test-Spoofer/PROJECT-STATUS.md` | Current development status |
 | **Secure Boot Bypass** | `SECURE-BOOT-BYPASS-STRATEGIES.md` | Secure Boot handling strategies |
 
-### Analysis Documentation
+### Additional Documentation
 
 | Document | Description |
 |----------|-------------|
-| `ARCHITECTURE-COMPARISON.md` | Detailed architecture comparison with Vision |
-| `VISION-ANALYSIS-SUMMARY.md` | Quick analysis overview |
-| `VISION-SPOOFER-ANALYSIS.md` | Technical deep-dive into Vision's methods |
-| `VISION-TOOLS-ANALYSIS.md` | Legal tool usage guide |
 | `IMPLEMENTATION-GUIDE-MONITOR-SPOOFING.md` | Monitor EDID spoofing implementation |
+| `ROADMAP.md` | Development roadmap and timeline |
 
 ---
 
@@ -456,44 +451,30 @@ HYPERVISOR SAFETY:
 
 ---
 
-## 📊 Comparison with Alternatives
+## 📊 Detection Resistance
 
-### Detection Resistance Comparison
+### L2 Technologies Comparison
 
-| Detection Method | Vision | L2 EFI | L2 Hypervisor |
-|-----------------|--------|--------|---------------|
-| Kernel Memory Scan | ⚠️ Moderate | ⚠️ Moderate | ✅ Excellent |
-| NVRAM Check | ⚠️ Moderate | ⚠️ Moderate | ✅ Excellent |
-| Timing Attack (RDTSC) | ❌ Vulnerable | ❌ Vulnerable | ✅ Compensated |
-| VM Detection | ❌ Vulnerable | ❌ Vulnerable | ✅ Evaded |
-| CPUID Check | ❌ Vulnerable | ❌ Vulnerable | ✅ Spoofed |
-| MSR Check | ❌ Vulnerable | ❌ Vulnerable | ✅ Intercepted |
+| Detection Method | L2 EFI Spoofer | L2 Hypervisor |
+|-----------------|----------------|---------------|
+| Kernel Memory Scan | ⚠️ Moderate | ✅ Excellent |
+| NVRAM Check | ⚠️ Moderate | ✅ Excellent |
+| Timing Attack (RDTSC) | ❌ Vulnerable | ✅ Compensated |
+| VM Detection | ❌ Vulnerable | ✅ Evaded |
+| CPUID Check | ❌ Vulnerable | ✅ Spoofed |
+| MSR Check | ❌ Vulnerable | ✅ Intercepted |
 
-### Feature Comparison
+### L2 Unique Features
 
-| Feature | Vision | L2 Project |
-|---------|--------|------------|
-| Core Technology | EFI Hooks | **Hypervisor + EFI** |
-| Hypervisor | ❌ None | ✅ Ring -1 |
-| VM Evasion | ❌ None | ✅ Complete |
-| CPUID Spoofing | ❌ None | ✅ Yes |
-| Intel Support | ✅ Yes | ✅ Yes |
-| AMD Support | Limited | ✅ Full |
-| Open Architecture | ❌ Closed | ✅ Open |
-| Documentation | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| User Experience | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-
-### Overall Score
-
-```
-                    Vision    L2 (Current)    L2 (Complete)
-Technology:         6/10      9/10            9/10
-Detection Resist:   5/10      8/10            9.5/10
-Features:           7/10      6/10            8.5/10
-Usability:          9/10      7/10            8/10
-───────────────────────────────────────────────────────
-TOTAL:              67%       75%             87.5%
-```
+| Feature | Status |
+|---------|--------|
+| Ring -1 Hypervisor | ✅ Implemented |
+| VM Detection Evasion | ✅ Complete |
+| CPUID Spoofing | ✅ Yes |
+| Intel VT-x Support | ✅ Full |
+| AMD-V Support | ✅ Full |
+| Open Architecture | ✅ Yes |
+| EFI-Level Spoofing | ✅ Yes |
 
 ---
 
