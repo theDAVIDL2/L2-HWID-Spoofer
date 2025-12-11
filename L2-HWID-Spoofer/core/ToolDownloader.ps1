@@ -63,6 +63,18 @@ $script:Tools = @{
         IsZipArchive = $true
         FolderName = "CrystalDiskInfo"
     }
+    "HxD" = @{
+        Name = "HxD Hex Editor"
+        FileName = "HxDSetup.exe"
+        DownloadUrl = "https://mh-nexus.de/downloads/HxDSetup.zip"
+        ExpectedSha256 = "dccfa4b16aa79e273cc7ffc35493c495a7fd09f92a4b790f2dc41c65f64d5378"
+        Description = "Hex editor for advanced manual BIOS editing"
+        IsZipArchive = $true
+        FolderName = "HxD"
+        IsInstaller = $true
+        SilentInstallArgs = "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-"
+        InstalledPath = "$env:ProgramFiles\HxD\HxD.exe"
+    }
 }
 
 function Initialize-ToolsDirectory {

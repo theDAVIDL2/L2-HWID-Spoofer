@@ -3,10 +3,101 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:L2.HwidMaster.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="L2 HWID Master" 
+        Height="700" Width="1100"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}">
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="{StaticResource SurfaceBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Logo Area -->
+                <StackPanel Margin="20,24,20,16">
+                    <TextBlock Text="L2 HWID" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                    <TextBlock Text="MASTER" FontSize="24" FontWeight="Bold" Foreground="{StaticResource PrimaryBrush}"/>
+                    <TextBlock Text="Hardware Spoofing Platform" FontSize="11" 
+                               Foreground="{StaticResource TextMutedBrush}" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <!-- Navigation -->
+                <StackPanel Grid.Row="1" Margin="0,8,0,0">
+                    <TextBlock Text="MAIN" FontSize="11" FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextMutedBrush}" Margin="20,8,0,8"/>
+                    
+                    <Button Style="{StaticResource NavButton}" Click="NavDashboard_Click" Content="Dashboard"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavSpoof_Click" Content="Quick Spoof"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavGuides_Click" Content="Guided Setup"/>
+
+                    <TextBlock Text="TOOLS" FontSize="11" FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextMutedBrush}" Margin="20,24,0,8"/>
+                    
+                    <Button Style="{StaticResource NavButton}" Click="NavMAC_Click" Content="MAC Spoofer"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavVolume_Click" Content="Volume ID"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavGUID_Click" Content="Machine GUID"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavMonitor_Click" Content="Monitor EDID"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavBios_Click" Content="BIOS Spoofer (AFUWIN)"/>
+
+                    <TextBlock Text="SYSTEM" FontSize="11" FontWeight="SemiBold" 
+                               Foreground="{StaticResource TextMutedBrush}" Margin="20,24,0,8"/>
+                    
+                    <Button Style="{StaticResource NavButton}" Click="NavTools_Click" Content="Manage Tools"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavBackup_Click" Content="Backup and Restore"/>
+                    <Button Style="{StaticResource NavButton}" Click="NavSettings_Click" Content="Settings"/>
+                </StackPanel>
+
+                <!-- Footer -->
+                <Border Grid.Row="2" BorderBrush="{StaticResource SurfaceHoverBrush}" 
+                        BorderThickness="0,1,0,0" Padding="20,16">
+                    <StackPanel>
+                        <TextBlock Text="v1.0.0 Beta" FontSize="11" 
+                                   Foreground="{StaticResource TextMutedBrush}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Padding="32,24" 
+                    BorderBrush="{StaticResource SurfaceHoverBrush}" BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel>
+                        <TextBlock x:Name="PageTitle" Text="Dashboard" Style="{StaticResource HeadingLarge}"/>
+                        <TextBlock x:Name="PageSubtitle" Text="Overview of your system and spoofing status" 
+                                   Style="{StaticResource BodyText}" Margin="0,4,0,0"/>
+                    </StackPanel>
+                    
+                    <Button Grid.Column="1" Style="{StaticResource PrimaryButton}" Click="QuickSpoof_Click" Content="Quick Spoof All"/>
+                </Grid>
+            </Border>
+
+            <!-- Content Frame -->
+            <Frame x:Name="ContentFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="32,24"/>
+        </Grid>
     </Grid>
 </Window>
